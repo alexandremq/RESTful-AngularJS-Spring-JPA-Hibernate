@@ -1,1 +1,1 @@
-web: mvn jetty:run
+web: sh target/bin/webapp
