@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Company Management</title>
+		<link href="css/company.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="dashboard" class="container" ng-app="CompanyManagement" ng-controller="CompanyController as company">
+			<div class="panel panel-default">
+				<div id="title" class="panel-heading col-md-12 col-xs-12"><h1>Company Management</h1></div>
+				<div class="panel-body">
+					<ul class="nav nav-tabs">
+						<li role="presentation" ><a data-toggle="tab" href="#companiesTab">Company</a></li>
+						<li role="presentation"><a data-toggle="tab" href="#ownersTab">Owners</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="companiesTab" class="tab-pane">
+							<div class="table-responsive col-md-4 col-xs-12 col-sm-12">
+								<div id="list" class="panel panel-default">
+									<div class="panel-heading"><h4>List of Companies</h4></div>
+									<table class="table table-hover">
+										<tr class="success">
+											<th>Id</th>
+											<th>Name</th>
+										</tr>
+										<tr ng-repeat="comp in companies" ng-click="companyDetails(comp.companyId)" style="cursor: pointer;">
+											<td>{{comp.companyId}}</td>
+											<td>{{comp.name}}</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<!-- <div class="col-md-1 col-sm-1"></div> -->
+							<div id="details" class="col-md-8 col-xs-12 col-sm-12">
+								<form class="panel panel-default">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-md-3 titleActionText" ><h4>Company Details</h4></div>
+											<div class="col-md-9 titleAction">
+												<button type="button" class="btn btn-info" ng-click="newCompany()">New Company</button>
+												<button type="button" id="saveCompany" class="btn btn-success" ng-click="saveCompany(company)">Save Company</button>
+											</div>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div class="form-group col-md-3">
+											<label for="companyid">Id</label>
+											<input id="companyid" type="number" class="form-control" ng-model="company.companyId" min="0" readonly >
+										</div>
+										<div class="form-group col-md-9">
+											<label for="name">Name</label>
+											<input id="name" type="text" class="form-control" ng-model="company.name" placeholder="Company Name" >
+										</div>
+										<div class="form-group col-md-8">
+											<label for="email">Email</label>
+											<input id="email" type="email" class="form-control" ng-model="company.email" placeholder="Company Email" >
+										</div>
+										<div class="form-group col-md-4">
+											<label for="phone">Phone Number</label>
+											<input id="phone" type="tel" class="form-control" ng-model="company.phoneNumber" placeholder="(012)345-6789" ui-mask="(999)999-9999">
+										</div>
+										<div class="form-group col-md-12">
+											<label for="address">Address</label>
+											<input id="address" type="text" class="form-control" ng-model="company.address" placeholder="Company Address">
+										</div>
+										<div class="form-group col-md-7">
+											<label for="city">City</label>
+											<input id="city" type="text" class="form-control" ng-model="company.city" placeholder="City">
+										</div>
+										<div class="form-group col-md-5">
+											<label for="country">Country</label>
+											<input id="country" type="text" class="form-control" ng-model="company.country" placeholder="Country">
+										</div>
+										<div class="panel panel-default col-md-12">
+											<div id="ownersPanel" class="row panel-heading">
+												<div class="row">
+													<div class="col-md-2 titleActionText" ><h4>Owner(s)</h4></div>
+													<div class="col-md-10 titleAction btn-group">
+														<button id="btnOwners" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															Add Owner<span class="caret"></span>
+														</button>
+														<ul id="btnOwners" class="dropdown-menu">
+															<li ng-repeat="o in owners">
+																<a href ng-click="addOwner(o)">{{o.name}} #{{o.ownerId}}</a>
+															</li>													
+														</ul>
+													</div>
+												</div>											
+											</div>
+											<ul class="list-group checked-list-box">
+												<li class="list-group-item" style="cursor: pointer;" ng-repeat="o in company.owners">
+													<a href ng-click="removeOwner(o)"><span id="delOwner" class="glyphicon glyphicon-remove"></span></a> {{o.name}}
+												</li>
+											</ul>
+										</div>										
+									</div>								
+								</form>
+							</div>
+						</div>
+						<div id="ownersTab" class="tab-pane">
+							<div class="table-responsive col-md-4 col-xs-12 col-sm-12">
+								<div id="list" class="panel panel-default">
+									<div class="panel-heading"><h4>List of Owners</h4></div>
+									<table class="table table-hover">
+										<tr class="success">
+											<th>Id</th>
+											<th>Name</th>
+										</tr>
+										<tr ng-repeat="owner in owners" ng-click="ownerDetails(owner)" style="cursor: pointer;">
+											<td>{{owner.ownerId}}</td>
+											<td>{{owner.name}}</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="col-md-8 col-xs-12 col-sm-12">
+								<form class="panel panel-default">
+									<div class="panel-heading">
+										<div class="row">
+											<div class="col-md-2 titleActionText">Owners</div>
+											<div class="col-md-10 titleAction">
+												<button type="button" class="btn btn-info" ng-click="newOwner()">New Owner</button>
+												<button type="button" class="btn btn-success" ng-click="saveOwner()">Save Owner</button>
+											</div>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div class="form-group col-md-12">
+											<label for="ownerName">Owner Name</label>
+											<input id="ownerName" type="text" class="form-control" ng-model="owner.name" placeholder="Owner name">											
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer alert" ng-class="style" ng-model="style" role="alert">
+					:: {{statusMsg}}
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="javascript/company.js"></script>
+</html>
