@@ -12,6 +12,7 @@
   
 	<properties>
 		<!-- <tomcat.home>/Users/alexandrequeiroz/Documents/installs/java/apache-tomcat-8.0.24</tomcat.home> -->
+		<app.context.path>/cma</app.context.path>
     	<springframework.version>4.2.5.RELEASE</springframework.version>
     	<hibernate.version>5.1.0.Final</hibernate.version>
     	<slf4j.version>1.7.18</slf4j.version>
@@ -105,6 +106,29 @@
   
 	<build>
 		<plugins>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals><goal>copy</goal></goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.eclipse.jetty</groupId>
+									<artifactId>jetty-runner</artifactId>
+									<version>9.3.3.v20150827</version>
+									<destFileName>jetty-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -115,6 +139,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            
 		</plugins>
 	</build>
   

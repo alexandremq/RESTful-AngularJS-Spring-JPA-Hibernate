@@ -1,1 +1,1 @@
-web: sh target/bin/webapp
+web: java -jar target/dependency/jetty-runner.jar --path /cma controller/target/*.war

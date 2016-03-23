@@ -124,50 +124,6 @@
 	<build>
 		<plugins>
 			
-			<!-- <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-dependency-plugin</artifactId>
-	            <version>2.3</version>
-	            <executions>
-	                <execution>
-	                    <phase>package</phase>
-	                    <goals><goal>copy</goal></goals>
-	                    <configuration>
-	                        <artifactItems>
-	                            <artifactItem>
-	                                <groupId>com.github.jsimone</groupId>
-	                                <artifactId>webapp-runner</artifactId>
-	                                <version>8.0.30.2</version>
-	                                <destFileName>webapp-runner.jar</destFileName>
-	                            </artifactItem>
-	                        </artifactItems>
-	                    </configuration>
-	                </execution>
-	            </executions>
-	        </plugin> -->
-	        
-	        <plugin>
-		      <groupId>org.apache.maven.plugins</groupId>
-		      <artifactId>maven-dependency-plugin</artifactId>
-		      <version>2.3</version>
-		      <executions>
-		        <execution>
-		          <phase>package</phase>
-		          <goals><goal>copy</goal></goals>
-		          <configuration>
-		            <artifactItems>
-		              <artifactItem>
-		                <groupId>org.eclipse.jetty</groupId>
-		                <artifactId>jetty-runner</artifactId>
-		                <version>9.3.3.v20150827</version>
-		                <destFileName>jetty-runner.jar</destFileName>
-		              </artifactItem>
-		            </artifactItems>
-		          </configuration>
-		        </execution>
-		       </executions>
-		    </plugin>
-			
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -196,10 +152,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
-				<!-- <configuration>
-					<webappDirectory>${tomcat.home}/webapps/cma</webappDirectory>
-				</configuration> -->
+				<configuration>
+					<!-- <webappDirectory>${tomcat.home}/webapps/cma</webappDirectory> -->
+					<!-- <webappDirectory>../target/cma</webappDirectory> -->					
+				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 	
