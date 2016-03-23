@@ -1,4 +1,4 @@
-var app = angular.module("CompanyManagement", []);
+var app = angular.module("CompanyManagement", ['angular-loading-bar']);
 app.controller('CompanyController', function($scope, $http){
 	$scope.statusMsg = "Select a tab to start.";
 	
