@@ -28,4 +28,4 @@ Although simple, it was decided to split the solution in modules. Furthermore, t
 * **[Hibernate ORM](hibernate interview questions)**
 * **[HSQLDB - HyperSQL DB](http://hsqldb.org)**
 * **[Maven](http://maven.apache.org)**
-* * **[Heroku - Deploy a Java Web Application That Launches with Jetty Runner](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)**
+* **[Heroku - Deploy a Java Web Application That Launches with Jetty Runner](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)**
