@@ -29,3 +29,4 @@ Although simple, it was decided to split the solution in modules. Furthermore, t
 * **[HSQLDB - HyperSQL DB](http://hsqldb.org)**
 * **[Maven](http://maven.apache.org)**
 * **[Heroku - Deploy a Java Web Application That Launches with Jetty Runner](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)**
+* **[Securing RESTful Web Services and Clients](http://docs.oracle.com/middleware/1212/wls/RESTF/secure-restful-service.htm#RESTF280)**
