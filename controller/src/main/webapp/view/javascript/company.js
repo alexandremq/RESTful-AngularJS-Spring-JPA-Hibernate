@@ -103,7 +103,9 @@ app.controller('CompanyController', function($scope, $http){
 				} else {
 					$scope.owners[index] = data;
 				}
-				$scope.owner = data;
+				$scope.newOwner();
+				$scope.statusMsg = "owner created sucessfully!";
+				$scope.style = "alert-success";
 			})
 			.error(function (data, status, headers, config){
 				$scope.statusMsg = "Owner was not created. An internal error ocurred. Message: "+ JSON.stringify(data);
@@ -111,8 +113,6 @@ app.controller('CompanyController', function($scope, $http){
 				return;
 			});
 		
-		$scope.statusMsg = "owner created sucessfully!";
-		$scope.style = "alert-success";
 	}
 	
 	
@@ -145,7 +145,9 @@ app.controller('CompanyController', function($scope, $http){
 				} else { //save the updated company in the list of companies.
 					$scope.companies[index] = data;			
 				}
-				$scope.company = data;
+				$scope.newCompany();
+				$scope.statusMsg = "Company saved sucessfully!";
+				$scope.style = "alert-success";
 			})
 			.error(function (data, status, headers, config){
 				$scope.statusMsg = "Company was not saved. An internal error ocurred. Message: "+ JSON.stringify(data);
@@ -153,8 +155,6 @@ app.controller('CompanyController', function($scope, $http){
 				return;
 			});
 		
-		$scope.statusMsg = "Company saved sucessfully!";
-		$scope.style = "alert-success";
 	};
 	
 });

@@ -25,7 +25,7 @@
 											<th>Id</th>
 											<th>Name</th>
 										</tr>
-										<tr ng-repeat="comp in companies" ng-click="companyDetails(comp.companyId)" style="cursor: pointer;">
+										<tr ng-repeat="comp in companies" ng-click="companyDetails(comp.companyId)" style="cursor: pointer;" ng-cloak>
 											<td>{{comp.companyId}}</td>
 											<td>{{comp.name}}</td>
 										</tr>
@@ -83,14 +83,14 @@
 														</button>
 														<ul id="btnOwners" class="dropdown-menu">
 															<li ng-repeat="o in owners">
-																<a href ng-click="addOwner(o)">{{o.name}} #{{o.ownerId}}</a>
+																<a href ng-click="addOwner(o)" ng-cloack>{{o.name}} #{{o.ownerId}}</a>
 															</li>													
 														</ul>
 													</div>
 												</div>											
 											</div>
 											<ul class="list-group checked-list-box">
-												<li class="list-group-item" style="cursor: pointer;" ng-repeat="o in company.owners">
+												<li class="list-group-item" style="cursor: pointer;" ng-repeat="o in company.owners" ng-cloak>
 													<a href ng-click="removeOwner(o)"><span id="delOwner" class="glyphicon glyphicon-remove"></span></a> {{o.name}}
 												</li>
 											</ul>
@@ -108,7 +108,7 @@
 											<th>Id</th>
 											<th>Name</th>
 										</tr>
-										<tr ng-repeat="owner in owners" ng-click="ownerDetails(owner)" style="cursor: pointer;">
+										<tr ng-repeat="owner in owners" ng-click="ownerDetails(owner)" style="cursor: pointer;" ng-cloak>
 											<td>{{owner.ownerId}}</td>
 											<td>{{owner.name}}</td>
 										</tr>
@@ -116,20 +116,24 @@
 								</div>
 							</div>
 							<div class="col-md-8 col-xs-12 col-sm-12">
-								<form class="panel panel-default">
+								<form class="panel panel-default" ng-submit="saveOwner()">
 									<div class="panel-heading">
 										<div class="row">
 											<div class="col-md-2 titleActionText">Owners</div>
 											<div class="col-md-10 titleAction">
 												<button type="button" class="btn btn-info" ng-click="newOwner()">New Owner</button>
-												<button type="button" class="btn btn-success" ng-click="saveOwner()">Save Owner</button>
 											</div>
 										</div>
 									</div>
 									<div class="panel-body">
 										<div class="form-group col-md-12">
 											<label for="ownerName">Owner Name</label>
-											<input id="ownerName" type="text" class="form-control" ng-model="owner.name" placeholder="Owner name">											
+											<div class="input-group">
+												<input id="ownerName" type="text" class="form-control" ng-model="owner.name" placeholder="Owner name">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-success" ng-click="saveOwner()">Save Owner</button>
+												</span>
+											</div>											
 										</div>
 									</div>
 								</form>
@@ -137,7 +141,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel-footer alert" ng-class="style" ng-model="style" role="alert">
+				<div class="panel-footer alert" ng-class="style" ng-model="style" role="alert" ng-cloak>
 					:: {{statusMsg}}
 				</div>
 			</div>
