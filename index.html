@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>CMA - Company Management App by alexandremq</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">CMA - Company Management App</h1>
+      <h2 class="project-tagline">AngularJS, Spring 4 RESTful , JPA2, Hibernate example application for Company Management App (CMA) simplified solution.</h2>
+      <a href="https://github.com/alexandremq/cma" class="btn">View on GitHub</a>
+      <a href="https://github.com/alexandremq/cma/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/alexandremq/cma/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="cma---company-management-app" class="anchor" href="#cma---company-management-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CMA - Company Management App</h1>
+
+<h1>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h1>
+
+<p>This is a very simple web app created using AngularJS, Java 8, Spring 4 RESTful , JPA2, Hibernate, Maven, Git, GitHub and Heroku. It provides RESTful services to create, update and view a singular Company and its respective owner(s) as well as services to retrieve and list all companies and owners stored in the underline repository. When viewed from a web browser, a client is able to place AJAX calls to all these services and visualize the respective response.</p>
+
+<hr>
+
+<h1>
+<a id="acessibility" class="anchor" href="#acessibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Acessibility</h1>
+
+<p>This Web app can be accessed through any web browser, curl, postman or any other similar tool.<br>
+The basic URL for accessing through a web browser is: <strong><a href="https://rocky-garden-55362.herokuapp.com/cma/view/index.html">https://rocky-garden-55362.herokuapp.com/cma/view/index.html</a></strong><br>
+The following URLs can be used to access the available services:</p>
+
+<ul>
+<li>
+<strong>List all companies:</strong> <a href="https://rocky-garden-55362.herokuapp.com/cma/services/companies">https://rocky-garden-55362.herokuapp.com/cma/services/companies</a>
+</li>
+<li>
+<strong>Show details about a specific company:</strong> <a href="https://rocky-garden-55362.herokuapp.com/cma/services/companies/%7BcompanyId%7D">https://rocky-garden-55362.herokuapp.com/cma/services/companies/{companyId}</a>
+</li>
+<li>
+<strong>List all owners:</strong> <a href="https://rocky-garden-55362.herokuapp.com/cma/services/owners">https://rocky-garden-55362.herokuapp.com/cma/services/owners</a>
+</li>
+<li>
+<strong>Save (create or update) a specific company:</strong> <a href="https://rocky-garden-55362.herokuapp.com/cma/services/companies/save">https://rocky-garden-55362.herokuapp.com/cma/services/companies/save</a>
+</li>
+<li>
+<strong>Save (create or update) a specific owner:</strong> <a href="https://rocky-garden-55362.herokuapp.com/cma/services/owners/save">https://rocky-garden-55362.herokuapp.com/cma/services/owners/save</a>
+</li>
+</ul>
+
+<hr>
+
+<h1>
+<a id="technical-details" class="anchor" href="#technical-details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technical details</h1>
+
+<p>The RESTful services were created usign <strong>Hibernate 5</strong>, <strong>JPA 2</strong>, <strong>Spring MVC, Core and Tests version 4,</strong> and <strong>HSQLDB 2</strong>.<br>
+An in memory database HSQLDB is being used and since this WebApp is deployed at <strong><a href="https://dashboard.heroku.com">Heroku</a></strong>, it is possible to have data loss when testing this App in different and sparse time. Howerver data loss will not happen when running locally within the same JVM.<br>
+TDD was used to create the whole solution, except Web tests. Spring Test is a very and powerful framework to allow the creation and Mocking of a virtual environment to sucessfully test every layer of this app. It was used in conjunction with <strong><a href="http://mockito.org">Mockito 1.10.19</a></strong> to allow assertions with mock data.<br>
+Although simple, it was decided to split the solution in modules. Furthermore, this Web App is not using Spring Boot in order to show what is necessary to do to create an app like this without the shortcuts offered by Spring Boot. Later I am planning to create this same solution using Spring Boot to allow a comparison between the traditional and the new way of creating Spring applications.</p>
+
+<hr>
+
+<h1>
+<a id="useful-references" class="anchor" href="#useful-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Useful References</h1>
+
+<ul>
+<li><strong><a href="https://angularjs.org">AngularJS</a></strong></li>
+<li><strong><a href="https://docs.angularjs.org/api">AngularJS API Docs</a></strong></li>
+<li><strong><a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-servlet">Web MVC Framework</a></strong></li>
+<li><strong><a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/integration-testing.html#spring-mvc-test-framework">Spring MVC Test Framework</a></strong></li>
+<li>
+<strong><a href="http://getbootstrap.com">Bootstrap</a></strong> </li>
+<li><strong><a href="hibernate%20interview%20questions">Hibernate ORM</a></strong></li>
+<li><strong><a href="http://hsqldb.org">HSQLDB - HyperSQL DB</a></strong></li>
+<li><strong><a href="http://maven.apache.org">Maven</a></strong></li>
+<li><strong><a href="https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner">Heroku - Deploy a Java Web Application That Launches with Jetty Runner</a></strong></li>
+<li><strong><a href="http://docs.oracle.com/middleware/1212/wls/RESTF/secure-restful-service.htm#RESTF280">Securing RESTful Web Services and Clients</a></strong></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/alexandremq/cma">CMA - Company Management App</a> is maintained by <a href="https://github.com/alexandremq">alexandremq</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
