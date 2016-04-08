@@ -138,7 +138,7 @@ The following URLs can be used to access the available services:
 ```
 
 
-# Technical details #
+# Technical overview #
 The RESTful services of this solution were created usign **Hibernate 5**, **JPA 2**, **Spring MVC, Core and Tests version 4.** and **HSQLDB 2**.  
 An in memory database **HSQLDB** is being used and since this WebApp is deployed at **[Heroku](https://dashboard.heroku.com)**, it is possible to have data loss when testing this App in different and sparse time. Howerver data loss will not happen when running locally within the same JVM.  
 TDD was used to create the whole solution, except Web tests. **Spring Test** is a very and powerful framework to allow the creation and Mocking of a virtual environment to sucessfully test every layer of this app. It was used in conjunction with **[Mockito 1.10.19](http://mockito.org)** to allow assertions with mock data.  
