@@ -11,7 +11,17 @@ The following URLs can be used to access the available services:
 * **GET request - Show details about a specific company:** https://rocky-garden-55362.herokuapp.com/cma/services/companies/{companyId}
 * **GET request - List all owners:** https://rocky-garden-55362.herokuapp.com/cma/services/owners
 * **POST request - Save (create or update) a specific company:** https://rocky-garden-55362.herokuapp.com/cma/services/companies/save
-* **POST request - Save (create or update) a specific owner:** https://rocky-garden-55362.herokuapp.com/cma/services/owners/save
+* **POST request - Save (create or update) a specific owner:** https://rocky-garden-55362.herokuapp.com/cma/services/owners/save  
+
+**You can run this project locally right after downloading by using the following command where 9191 is the port listening for requests on this app:**
+
+```
+java -jar target/dependency/jetty-runner.jar --path /cma --port 9191 controller/target/*.war
+```
+**After running the Jetty web server, you can access this app in your browser through the follwing address.**
+```
+http://localhost:9191/cma/view/index.html
+```
 
 # Request Examples #
 
