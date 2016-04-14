@@ -25,7 +25,6 @@ import com.amq.cma.domain.Owner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/services-context.xml")
-@Transactional
 @ActiveProfiles("test")
 public class CompanyServicesTest {
 	Logger logger = LoggerFactory.getLogger(CompanyServicesTest.class);
