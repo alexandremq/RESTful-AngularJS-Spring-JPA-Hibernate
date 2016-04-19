@@ -39,6 +39,13 @@ public class CompanyServicesImpl implements CompanyServices {
 	}
 	
 	@Override
+	public List<Owner> getAllOwners(){
+		logger.debug("Selecting all owners stored...");
+		
+		return companyDao.getAllOwners();
+	}
+	
+	@Override
 	public Company saveCompany(Company newCompany) {
 		if(newCompany == null){ return null; }
 		logger.debug("Saving company..."+ newCompany);
@@ -47,29 +54,21 @@ public class CompanyServicesImpl implements CompanyServices {
 	}
 	
 	@Override
+	public Owner saveOwner(Owner owner){
+		if(owner == null){ return owner; }		
+		logger.info("Saving owner "+ owner +"...");
+		
+		return companyDao.saveOwner(owner);
+	}
+	
+	@Override
 	public Company addOwners(Long companyId, List<Owner> owners) {
 		if(companyId == null){ 
-			logger.warn("Company id was null, so returning null."); 
+			logger.warn("Company id was null. Returning null."); 
 			return null; 
 		}
 		logger.info("Adding Owner(s) "+ owners + " to company "+ companyId +"...");
 		
 		return companyDao.addOwners(companyId, owners);
 	}
-	
-	@Override
-	public List<Owner> getAllOwners(){
-		logger.debug("Selecting all owners stored...");
-		
-		return companyDao.getAllOwners();
-	}
-	
-	@Override
-	public Owner saveOwner(Owner owner){
-		if(owner == null){ return owner; }		
-		logger.info("Saving owner "+ owner.getName() +"...");
-		
-		return companyDao.saveOwner(owner);
-	}
-
 }

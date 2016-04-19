@@ -11,6 +11,8 @@
 	
 	<groupId>com.amq.cma.domain</groupId>
 	<artifactId>domain</artifactId>
+	<packaging>jar</packaging>
+	
 	<name>CMA Domain</name>
 	<description>CMA-Company Management App Domain Classes</description>
 	

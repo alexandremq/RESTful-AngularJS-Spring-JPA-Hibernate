@@ -1,8 +1,8 @@
 package com.amq.cma.services;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.amq.cma.domain.Company;
 import com.amq.cma.domain.Owner;
@@ -27,7 +26,7 @@ import com.amq.cma.domain.Owner;
 @ContextConfiguration("classpath:/services-context.xml")
 @ActiveProfiles("test")
 public class CompanyServicesTest {
-	Logger logger = LoggerFactory.getLogger(CompanyServicesTest.class);
+	private final Logger logger = LoggerFactory.getLogger(CompanyServicesTest.class);
 	
 	@Mock private CompanyServices companyServices;
 	
@@ -38,7 +37,7 @@ public class CompanyServicesTest {
 	
 	@Test
 	public void getAllCompaniesTest(){
-		logger.debug("testing getAllCompanies...");
+		logger.debug("testing CompanyServicesImpl.getAllCompanies()...");
 		Owner owner = new Owner();
 		owner.setOwnerId(54L);
 		owner.setName("Skywalker Kenobi");
@@ -72,7 +71,7 @@ public class CompanyServicesTest {
 	
 	@Test
 	public void getCompanyTest(){
-		logger.debug("testing getCompany...");
+		logger.debug("testing CompanyServicesImpl.getCompany(companyId)...");
 		
 		Owner owner = new Owner();
 		owner.setOwnerId(54L);
@@ -94,7 +93,30 @@ public class CompanyServicesTest {
 	}
 	
 	@Test
-	public void saveCompanyTestCreate(){
+	public void getAllOwnersTest(){
+		logger.debug("testing CompanyServicesImpl.getAllOwners()...");
+		
+		Owner owner = new Owner();
+		owner.setOwnerId(54L);
+		owner.setName("Skywalker Kenobi");
+		Owner owner1 = new Owner();
+		owner1.setOwnerId(55L);
+		owner1.setName("Trying Skywalker");
+		
+		List<Owner> owners = new ArrayList<>();
+		owners.add(owner);
+		owners.add(owner1);
+		
+		Mockito.when(companyServices.getAllOwners()).thenReturn(owners);
+		
+		List<Owner> result = companyServices.getAllOwners();
+		
+		assertEquals(owners.size(), result.size());
+	}
+
+	@Test
+	public void saveCompanyTest(){
+		logger.debug("testing CompanyServicesImpl.saveCompany()...");
 		Owner owner = new Owner();
 		owner.setName("Skywalker Kenobi");
 		List<Owner> owners = new ArrayList<>();
@@ -129,46 +151,18 @@ public class CompanyServicesTest {
 	}
 	
 	@Test
-	public void saveCompanyTestUpdate(){
-		Owner owner = new Owner();
-		owner.setOwnerId(22L);
-		owner.setName("Skywalker Kenobi");
-		List<Owner> owners = new ArrayList<>();
-		owners.add(owner);
+	public void saveCompanyTestNull(){
+		logger.debug("testing CompanyServicesImpl.saveCompany() null...");
 		
-		Company comp = new Company();
-		comp.setCompanyId(444L);
-		comp.setName("Acme Inc.");
-		comp.setAddress("685 Market St #7th floor");
-		comp.setCity("San Francisco");
-		comp.setCountry("USA");
-		comp.addOwners(owners);
+		Mockito.when(companyServices.saveCompany(null)).thenReturn(null);		
+		Company comp = companyServices.saveCompany(null);
 		
-		Owner owner1 = new Owner();
-		owner1.setOwnerId(25L);
-		owner1.setName("Yoda Alderan");
-		List<Owner> owners1 = new ArrayList<>();
-		owners1.add(owner1);
-		
-		Company comp1 = new Company();
-		comp1.setCompanyId(444L);
-		comp1.setName("New Acme Inc.");
-		comp1.setAddress("685 California St #777th floor");
-		comp1.setCity("San Mateo");
-		comp1.setCountry("USA");
-		comp1.addOwners(owners1);
-
-		Mockito.when(companyServices.saveCompany(comp)).thenReturn(comp1);
-		
-		Company comp2 = companyServices.saveCompany(comp);
-		assertEquals(comp.getCompanyId(), comp2.getCompanyId());
-		assertNotEquals(comp.getName(), comp2.getName());
-		assertNotEquals(comp.getCity(), comp2.getCity());
-		assertNotEquals(comp.getOwners().get(0).getOwnerId(), comp2.getOwners().get(0).getOwnerId());
+		assertNull(comp);
 	}
 	
 	@Test
 	public void addOwnersTest(){
+		logger.debug("testing CompanyServicesImpl.addOwners(companyId, owners) create...");
 		Owner owner = new Owner();
 		owner.setName("Skywalker Vader");
 		Owner owner1 = new Owner();
@@ -210,38 +204,38 @@ public class CompanyServicesTest {
 	}
 	
 	@Test
-	public void getAllOwnersTest(){
-		logger.debug("testing getAllOwners...");
-
+	public void addOwnersTestNull(){
+		logger.debug("testing CompanyServicesImpl.addOwners(companyId, owners) null...");
 		Owner owner = new Owner();
-		owner.setOwnerId(54L);
-		owner.setName("Skywalker Kenobi");
+		owner.setName("Skywalker Vader");
 		Owner owner1 = new Owner();
-		owner1.setOwnerId(55L);
-		owner1.setName("Trying Skywalker");
+		owner1.setName("Vader Skywalker");
 		
 		List<Owner> owners = new ArrayList<>();
 		owners.add(owner);
 		owners.add(owner1);
 		
-		Mockito.when(companyServices.getAllOwners()).thenReturn(owners);
-		
-		List<Owner> result = companyServices.getAllOwners();
-		
-		assertEquals(owners.size(), result.size());
+		Mockito.when(companyServices.addOwners(null, owners)).thenReturn(null);		
+		Company comp = companyServices.addOwners(null, owners);
+		assertNull(comp);
 	}
 	
 	@Test
 	public void saveOwnerTest(){
-		logger.debug("testing  saveOwner...");
+		logger.debug("testing CompanyServicesImpl.saveOwner() ...");
 		Owner owner = new Owner();
 		owner.setOwnerId(54L);
 		owner.setName("Skywalker Kenobi");
 		
-		Mockito.when(companyServices.saveOwner(owner)).thenReturn(owner);
-		
-		owner = companyServices.saveOwner(owner);
-		
+		Mockito.when(companyServices.saveOwner(owner)).thenReturn(owner);		
+		owner = companyServices.saveOwner(owner);		
 		assertNotNull(owner.getOwnerId());
+	}
+	
+	@Test
+	public void saveOwnerTestNull(){
+		Mockito.when(companyServices.saveOwner(null)).thenReturn(null);		
+		Owner owner = companyServices.saveOwner(null);		
+		assertNull(owner);
 	}
 }

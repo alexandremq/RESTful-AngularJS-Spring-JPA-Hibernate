@@ -17,6 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,8 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ContextConfiguration(locations={"classpath*:app-context.xml", "classpath*:services-context.xml"})
 @ActiveProfiles("test")
 public class CmaFrontControllerTest {
-//	private final String APP_JSON = "application/json;charset=UTF-8";
-	
+	Logger logger = LoggerFactory.getLogger(CmaFrontControllerTest.class); 
 	@InjectMocks private CmaFrontController cmaFrontController;
 	@Mock private CompanyServices companyServices;
 	
@@ -51,6 +52,7 @@ public class CmaFrontControllerTest {
 	
 	@Test
 	public void listCompaniesTest() throws Exception{
+		logger.debug("testing GET request to /services/companies ...");
 		Owner owner = new Owner();
 		owner.setOwnerId(54L);
 		owner.setName("Skywalker Kenobi");
@@ -79,7 +81,7 @@ public class CmaFrontControllerTest {
 		
 		mockMvc.perform(get("/services/companies")
 			.accept(MediaType.APPLICATION_JSON_UTF8))			
-			.andExpect(jsonPath("$[0].companyId").value(333))
+			.andExpect(jsonPath("$[0].companyId").value(333)) 			//for JsonPath sintax check: https://github.com/jayway/JsonPath
 			.andExpect(jsonPath("$[0].name").value("Acme Inc."))
 			.andExpect(jsonPath("$[0].owners[0].ownerId").value(54))
 			.andExpect(jsonPath("$[1].companyId").value(444))
@@ -89,6 +91,7 @@ public class CmaFrontControllerTest {
 	
 	@Test
 	public void getCompanyTest() throws Exception{
+		logger.debug("testing GET request to /services/companies/{companyId} ...");
 		Owner owner = new Owner();
 		owner.setOwnerId(54L);
 		owner.setName("Skywalker Kenobi");
@@ -110,7 +113,34 @@ public class CmaFrontControllerTest {
 	}
 	
 	@Test
+	public void listOwnersTest() throws Exception{
+		logger.debug("testing GET request to /services/owners ...");
+		
+		Owner owner = new Owner();
+		owner.setOwnerId(54L);
+		owner.setName("Skywalker Kenobi");
+		Owner owner1 = new Owner();
+		owner1.setOwnerId(55L);
+		owner1.setName("Trying Skywalker");
+		
+		List<Owner> owners = new ArrayList<>();
+		owners.add(owner);
+		owners.add(owner1);
+		
+		Mockito.when(companyServices.getAllOwners()).thenReturn(owners);
+		
+		mockMvc.perform(get("/services/owners")
+				.accept(MediaType.APPLICATION_JSON_UTF8))
+		.andExpect(jsonPath("$[0].ownerId").value(54))
+		.andExpect(jsonPath("$[0].name").value("Skywalker Kenobi"))
+		.andExpect(jsonPath("$[1].ownerId").value(55))
+		.andExpect(jsonPath("$[1].name").value("Trying Skywalker"));
+	}
+	
+	@Test
 	public void saveCompanyTest() throws Exception{
+		logger.debug("testing POST request to /services/companies/save ...");
+		
 		Owner owner = new Owner();
 		owner.setName("Skywalker Kenobi");
 		
@@ -144,30 +174,9 @@ public class CmaFrontControllerTest {
 	}
 	
 	@Test
-	public void listOwnersTest() throws Exception{
-		Owner owner = new Owner();
-		owner.setOwnerId(54L);
-		owner.setName("Skywalker Kenobi");
-		Owner owner1 = new Owner();
-		owner1.setOwnerId(55L);
-		owner1.setName("Trying Skywalker");
-		
-		List<Owner> owners = new ArrayList<>();
-		owners.add(owner);
-		owners.add(owner1);
-		
-		Mockito.when(companyServices.getAllOwners()).thenReturn(owners);
-		
-		mockMvc.perform(get("/services/owners")
-				.accept(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(jsonPath("$[0].ownerId").value(54))
-				.andExpect(jsonPath("$[0].name").value("Skywalker Kenobi"))
-				.andExpect(jsonPath("$[1].ownerId").value(55))
-				.andExpect(jsonPath("$[1].name").value("Trying Skywalker"));
-	}
-	
-	@Test
 	public void saveOwnerTest() throws Exception{
+		logger.debug("testing POST request to /services/owners/save ...");
+		
 		Owner owner = new Owner();
 		owner.setName("Skywalker Kenobi");
 		

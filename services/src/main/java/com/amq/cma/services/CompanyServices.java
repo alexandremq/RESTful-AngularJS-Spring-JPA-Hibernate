@@ -13,16 +13,16 @@ public interface CompanyServices {
 	/** Return a company that matches the given companyId with all it's properties. */
 	public Company getCompany(Long companyId);
 	
-	/** Create new company or update an existing one. */
-	public Company saveCompany(Company newCompany);
-		
-	/** Add the new owner to the given company. Since not clarified, 
-	 * assuming if the owner does not exists, it will be created, otherwise it will be reused. */
-	public Company addOwners(Long companyId, List<Owner> owners);
-	
 	/** Return a List of all existing owners. */
 	public List<Owner> getAllOwners();
 	
+	/** Create new company or update an existing one. */
+	public Company saveCompany(Company newCompany);
+		
 	/** Create or just retrieve the given owner with its current id created or previously stored. */
 	public Owner saveOwner(Owner owner);
+	
+	/** Add the new owner to the given company. Since not clarified, 
+	 * assuming if the owner does not exists, it will be created, otherwise it will be reused. */
+	public Company addOwners(Long companyId, List<Owner> owners);
 }

@@ -16,7 +16,7 @@
    
 	<logger name="com.amq.cma" level="TRACE"/>
    	
-	<root level="trace">
+	<root level="debug">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</root>

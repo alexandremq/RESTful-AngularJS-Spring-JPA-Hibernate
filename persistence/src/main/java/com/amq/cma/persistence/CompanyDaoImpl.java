@@ -30,9 +30,6 @@ public class CompanyDaoImpl implements CompanyDao{
 	public void setEntityManager(EntityManager entityManager){
 		this.entityManager = entityManager;
 	}
-	public EntityManager getEntityManager(){
-		return this.entityManager;
-	}
 	
 	@Transactional(readOnly=true)
 	@Override
@@ -67,57 +64,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		return comp;
 	}
 	
-	@Transactional
-	@Override
-	public Company saveCompany(Company newCompany){
-		logger.debug("Saving company..."+ newCompany);
-		if(newCompany == null){ return null; }
-		
-		if(newCompany.getCompanyId() == null){
-			logger.info("Creating new company "+ newCompany.getName() + "...");
-			if(newCompany.getOwners() != null && !newCompany.getOwners().isEmpty()){
-				List<Owner> owners = getOwners(newCompany.getOwners());
-				newCompany.setOwners(owners);
-			}
-			
-			entityManager.persist(newCompany);
-		} else {
-			logger.info("Updating company "+ newCompany.getName() +"...");
-			entityManager.merge(newCompany);
-		}
-		
-		logger.info("New company "+ newCompany.getName() +" saved with id "+ newCompany.getCompanyId() +".");
-		return newCompany;
-	}
-	
-	@Transactional
-	@Override
-	public Owner saveOwner(Owner owner){
-		logger.debug("Saving owner "+ owner +"...");
-		if(owner == null){ return null; }
-		
-		if(owner.getOwnerId() == null){ 
-			logger.info("Creating owner "+ owner.getName() + "...");
-			entityManager.persist(owner);
-		} else {
-			logger.info("Updating owner "+ owner.getName() + "...");
-			entityManager.merge(owner);
-		}
-		
-		return owner;
-	}
-	
-	@Transactional
-	@Override
-	public Company addOwners(Long companyId, List<Owner> owners){
-		Company company = getCompany(companyId);
-		logger.info("Adding Owner "+ owners + " to company "+ company.getName() +"...");
-		
-		company.addOwners(owners);
-		
-		return saveCompany(company);
-	}
-	
+	@Transactional(readOnly=true)
 	@SuppressWarnings("unchecked")
 	public List<Owner> getOwners(List<Owner> owners){
 		logger.debug("Selecting owners based on the given list of owners "+ owners +"...");
@@ -135,6 +82,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		return owners;
 	}
 	
+	@Transactional(readOnly=true)
 	@SuppressWarnings("unchecked")
 	public List<Owner> getAllOwners(){
 		logger.debug("Selecting all owners stored...");
@@ -147,4 +95,53 @@ public class CompanyDaoImpl implements CompanyDao{
 		
 		return owners;
 	}
+	
+	@Override
+	public Company saveCompany(Company newCompany){
+		logger.debug("Saving company..."+ newCompany);
+		if(newCompany == null){ return null; }
+		
+		if(newCompany.getCompanyId() == null){ //TODO check this implementation. It seems I can solve it without traversing owners
+			logger.info("Creating new company "+ newCompany + "...");
+			if(newCompany.getOwners() != null && !newCompany.getOwners().isEmpty()){
+				List<Owner> owners = getOwners(newCompany.getOwners());
+				newCompany.setOwners(owners);
+			}
+			
+			entityManager.persist(newCompany);
+		} else {
+			logger.info("Updating company "+ newCompany +"...");
+			entityManager.merge(newCompany);
+		}
+		
+		logger.info("New company "+ newCompany.getName() +" saved with id "+ newCompany.getCompanyId() +".");
+		return newCompany;
+	}
+	
+	@Override
+	public Owner saveOwner(Owner owner){
+		logger.debug("Saving owner "+ owner +"...");
+		if(owner == null){ return null; }
+		
+		if(owner.getOwnerId() == null){ 
+			logger.info("Creating owner "+ owner + "...");
+			entityManager.persist(owner);
+		} else {
+			logger.info("Updating owner "+ owner + "...");
+			entityManager.merge(owner);
+		}
+		
+		return owner;
+	}
+	
+	@Override
+	public Company addOwners(Long companyId, List<Owner> owners){
+		Company company = getCompany(companyId);
+		logger.info("Adding Owner "+ owners + " to company "+ company.getName() +"...");
+		
+		company.addOwners(owners);
+		
+		return saveCompany(company);
+	}
+
 }

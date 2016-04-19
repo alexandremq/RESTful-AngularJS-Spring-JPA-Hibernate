@@ -19,12 +19,12 @@
 		<dependency>
 			<groupId>com.amq.cma.domain</groupId>
 			<artifactId>domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amq.cma.services</groupId>
 			<artifactId>services</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		
 	</dependencies>
